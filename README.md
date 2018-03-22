@@ -1,2 +1,2 @@
 # Python
-study
+study python notebook
