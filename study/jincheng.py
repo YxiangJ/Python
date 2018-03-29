@@ -9,14 +9,14 @@ def run_proc(name):
 if __name__=='__main__':
     print('Parent process %s.' % os.getpid())
     for i in range(5):
-        p=Process(target=run_proc(i),args=(str(i),))
+        p=Process(target=run_proc,args=(str(i),))
         print('Process will start.')
         p.start()
     p.join()
     print('Process end.')
 
 '''
-'''
+#'''
 #Pool池多进程
 from multiprocessing import Pool
 import os,time,random
@@ -30,12 +30,12 @@ if __name__=='__main__':
     print('Current process %s.' % os.getppid())
     p=Pool(processes=3)
     for i in range(5):
-        p.apply_async(run_task(i),args=(i,))
+        p.apply_async(run_task,args=(i,))
     print('Waiting for all subprocesses done...')
     p.close()
     p.join()
     print('All subprocesses done.')
-'''
+#'''
 '''
 #进程同步锁
 
@@ -246,6 +246,7 @@ manager.shutdown()
 print('master exit.')
 
 '''
+'''
 #任务进程
 import time,sys,queue
 from multiprocessing.managers import BaseManager
@@ -279,4 +280,5 @@ for i in range(10):
         print('task queue is empty.')
 #处理结束
 print('worker exit.')
+'''
 
