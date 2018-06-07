@@ -27,14 +27,16 @@ class SpiderMan(object):
                     '&t=%s' \
                     '&Ajax_CallBackArgument0=%s' % (url[0], t, url[1])
                 rank_content = self.downloader.download(rank_url)
-                print(rank_content)
-                #data = self.parser.parser_json(rank_url, rank_content)#问题区域，无法获取data
-                print(self.parser.parser_json(rank_url, rank_content))
-                self.output.store_data(self.parser.parser_json(rank_url, rank_content))
+                data = self.parser.parser_json(
+                    rank_url, rank_content)  # 问题区域，无法获取data
+                print(data)
+                self.output.store_data(data)
             except Exception as e:
                 print("Crawl failed")
         self.output.output_end()
         print("Crawl finish")
+
+
 if __name__ == '__main__':
     spider = SpiderMan()
     spider.crawl('http://theater.mtime.com/China_Beijing/')

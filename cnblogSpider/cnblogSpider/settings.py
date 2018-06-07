@@ -39,26 +39,26 @@ ROBOTSTXT_OBEY = True
 #TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-#DEFAULT_REQUEST_HEADERS = {
+# DEFAULT_REQUEST_HEADERS = {
 #   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
 #   'Accept-Language': 'en',
 #}
 
 # Enable or disable spider middlewares
 # See https://doc.scrapy.org/en/latest/topics/spider-middleware.html
-#SPIDER_MIDDLEWARES = {
+# SPIDER_MIDDLEWARES = {
 #    'cnblogSpider.middlewares.CnblogspiderSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
+# DOWNLOADER_MIDDLEWARES = {
 #    'cnblogSpider.middlewares.CnblogspiderDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html
-#EXTENSIONS = {
+# EXTENSIONS = {
 #    'scrapy.extensions.telnet.TelnetConsole': None,
 #}
 
@@ -66,15 +66,15 @@ ROBOTSTXT_OBEY = True
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     'cnblogSpider.pipelines.CnblogspiderPipeline': 300,
-    'scrapy.pipelines.images.ImagesPipeline':1
+    'scrapy.pipelines.images.ImagesPipeline': 1
 }
 IMAGES_STORE = 'E:\\workspace\\git\\cnblogs'
 IMAGES_URLS_FIELD = 'cimage_urls'
 IMAGES_RESULT_FIELD = 'cimages'
 IMAGES_EXPIRES = 30
 IMAGES_THUMBS = {
-	'small':(50,50),
-	'big':(270,270),
+    'small': (50, 50),
+    'big': (270, 270),
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -97,3 +97,18 @@ IMAGES_THUMBS = {
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+
+# 使用scrapy_redis的调度器
+SCHEDULER = "scrapy_redis.scheduler.Scheduler"
+# 在Redis中保持scrapy_redis用到的各个队列，从而允许暂停和暂停后恢复
+SCHEDULER_PERSIST = True
+# 使用scrapy_redis的去重方式
+DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
+# 使用scrapy_redis的存储方式
+ITEM_PIPELINES = {
+    'scrapy_redis.pipelines.RedisPipeline': 300
+}
+# 定义Redis的IP和端口：
+REDIS_HOST = '127.0.0.1'
+REDIS_PORT = 6379

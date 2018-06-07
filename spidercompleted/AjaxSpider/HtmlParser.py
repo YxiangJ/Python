@@ -1,4 +1,5 @@
 import re
+import json
 
 
 # 提取当前正在上映的电影链接
@@ -25,7 +26,6 @@ class HtmlParser(object):
         if result != None:
             # json模块加载字符串
             value = json.loads(result)
-            print(value)
             try:
                 isRelease = value.get('value').get('isRelease')
             except Exception as e:
@@ -80,7 +80,7 @@ class HtmlParser(object):
             print(e, page_url, value)
             return None
 
-    def _parser_no_release(self, page_url, value, isRelease = 0):
+    def _parser_no_release(self, page_url, value, isRelease=0):
         '''
         解析未上映的电影信息
         :param page_url:
@@ -110,6 +110,8 @@ class HtmlParser(object):
         except Exception as e:
             print(e, page_url, value)
             return None
+
+
 '''
 if __name__ == '__main__':
     parsr = HtmlParser()

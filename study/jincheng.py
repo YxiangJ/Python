@@ -16,7 +16,7 @@ if __name__=='__main__':
     print('Process end.')
 
 '''
-#'''
+'''
 #Pool池多进程
 from multiprocessing import Pool
 import os,time,random
@@ -35,7 +35,7 @@ if __name__=='__main__':
     p.close()
     p.join()
     print('All subprocesses done.')
-#'''
+'''
 '''
 #进程同步锁
 
@@ -47,14 +47,14 @@ import os
 def work(filename,lock):    #买票
     #lock.acquire()
     with lock:
-        with open(filename,encoding='utf-8') as f:
+        with open(filename,'w+', encoding='utf-8') as f:
             dic=json.loads(f.read())
             #print('剩余票数：%s'% dic['count'])
             if dic['count']>0:
                 dic['count']-=1
                 time.sleep(random.randint(1,3)) #模拟网络延迟
-                with open(filename,'w',encoding='utf-8')as f:
-                    f.write(json.dumps(doc))
+                with open(filename,'w', encoding='utf-8')as f:
+                    f.write(json.dumps(dic))
                 print('%s 购票成功'%os.getpid())
             else:
                 print('%s 购票失败'%os.getpid())
@@ -63,7 +63,7 @@ if __name__=='__main__':
     lock=Lock()
     p_1=[]
     for i in range(10):
-        p=Process(target=work(i,lock),args=('db',lock))
+        p=Process(target=work,args=('db',lock))
         p_1.append(p)
         p.start()
     for p in p_1:
@@ -72,7 +72,7 @@ if __name__=='__main__':
     print('主线程')
 '''
 
-'''
+#'''
 # 进程间通信
 
 from multiprocessing import Process, Queue
@@ -102,11 +102,11 @@ def proc_read(q):
 
 if __name__ == '__main__':  # 父进程创建queue，并传给各个子进程
     q = Queue()
-    proc_writer1 = Process(target=proc_write(q,['url_1', 'url_2', 'url_3']), args=(
+    proc_writer1 = Process(target=proc_write(), args=(
         q, ['url_1', 'url_2', 'url_3']))
-    proc_writer2 = Process(target=proc_write(q,['url_1', 'url_2', 'url_3']), args=(
+    proc_writer2 = Process(target=proc_write(), args=(
         q, ['url_4', 'url_5', 'url_6']))
-    proc_reader = Process(target=proc_read(q), args=(q,))
+    proc_reader = Process(target=proc_read(), args=(q,))
     # 启动子进程proc_writer，写入：
     proc_writer1.start()
     proc_writer2.start()
@@ -118,7 +118,7 @@ if __name__ == '__main__':  # 父进程创建queue，并传给各个子进程
     # proc_reader进程里是死循环，无法等待其结束，只能强行中止：
     proc_reader.terminate()
 
-'''
+#'''
 '''
 from multiprocessing import Process,Queue
 import time

@@ -4,7 +4,7 @@ import sqlite3
 class DataOutput(object):
 
     def __init__(self):
-        self.cx = sqlite3.connect('MTime.tb')
+        self.cx = sqlite3.connect('MTime.db')
         self.creat_table('MTime')
         self.datas = []
 

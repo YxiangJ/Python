@@ -8,7 +8,7 @@
 import scrapy
 import sys
 from scrapy.selector import Selector
-sys.path.append("E:\worksapce\git\cnblogSpider")
+sys.path.append("E:\\worksapce\\git\\cnblogSpider")
 from cnblogSpider.items import CnblogspiderItem
 class CnblogSpider(scrapy.Spider):
 	name = "cnblogs" #爬虫的名称
